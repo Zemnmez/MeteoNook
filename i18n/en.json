@@ -236,5 +236,8 @@
     "newSuffix": "(New!)",
     "spcTypePrefix": "Special cloud type:",
     "helpPossiblePatterns": "These are the patterns that match the weather types you've entered for this day. Click on a name to see the full details for that pattern.",
-    "helpCloudType": "This is the special cloud type that you might see on this date. See the 'special cloud types' section above for examples of what this would look like."
+    "helpCloudType": "This is the special cloud type that you might see on this date. See the 'special cloud types' section above for examples of what this would look like.",
+    "oAddToCalendar": "Add to Calendar",
+    "oAddToCalendarDesc": "Generate a calendar file which can be used to add weather events to your personal calendar.",
+    "oAddToCalendarWeatherEvents": "Weather Events",
 }

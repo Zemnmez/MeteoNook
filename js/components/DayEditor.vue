@@ -120,7 +120,7 @@
 
 <script lang='ts'>
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import {DayInfo, DayType, AmbiguousWeather, ShowerType, StarInfo, dayUsesTypes, getPossiblePatternsForDay, rainbowPatternsByTime, DayForecast, isSpecialCloudEntryAllowed} from '../model'
+import {DayInfo, DayType, AmbiguousWeather, ShowerType, StarInfo, dayUsesTypes, getPossiblePatternsForDay, rainbowPatternsByTime, DayForecast, isSpecialCloudEntryAllowed, weatherTypeOptions, translateWeatherType} from '../model'
 import {isSpecialDay, SpecialDay, Hemisphere, SpWeatherLevel, getSpWeatherLevel, Weather, Pattern, CloudLevel, getCloudLevel} from '../../pkg'
 import HelpButton from './HelpButton.vue'
 import { TranslateResult } from 'vue-i18n'
@@ -147,19 +147,11 @@ export default class DayEditor extends Vue {
 		return options
 	}
 	get weatherTypeOptions() {
-		return [
-			{value: Weather.Clear, text: this.$t('lstPatternChoices0')},
-			{value: Weather.Sunny, text: this.$t('lstPatternChoices1')},
-			{value: Weather.Cloudy, text: this.$t('lstPatternChoices2')},
-			{value: Weather.RainClouds, text: this.$t('lstPatternChoices3')},
-			{value: Weather.Rain, text: this.$t('lstPatternChoices4')},
-			{value: Weather.HeavyRain, text: this.$t('lstPatternChoices5')},
-			{value: AmbiguousWeather.ClearOrSunny, text: this.$t('lstPatternChoices6')},
-			{value: AmbiguousWeather.SunnyOrCloudy, text: this.$t('lstPatternChoices7')},
-			{value: AmbiguousWeather.CloudyOrRainClouds, text: this.$t('lstPatternChoices8')},
-			{value: AmbiguousWeather.NoRain, text: this.$t('lstPatternChoices9')},
-			{value: AmbiguousWeather.RainOrHeavyRain, text: this.$t('lstPatternChoices10')},
-		]
+		const self = this;
+		return weatherTypeOptions.map(w => ({
+			value: w,
+			get text() { return translateWeatherType(self, w) }
+		}))
 	}
 	get starHourOptions() {
 		const options = []

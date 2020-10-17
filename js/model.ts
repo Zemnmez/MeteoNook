@@ -1,6 +1,9 @@
 export enum DayType { NoData = 0, None, Shower, Rainbow, Aurora }
 export enum ShowerType { NotSure = 0, Light, Heavy }
 
+import type { Vue as VueTranslator } from 'vue/types/vue';
+import type VueI18n from 'vue-i18n';
+
 import {Hemisphere, Weather, SpecialDay, getMonthLength, Pattern, getPattern, getWeather, getWindPower, isSpecialDay, SnowLevel, CloudLevel, FogLevel, getSnowLevel, getCloudLevel, getFogLevel, checkWaterFog, getRainbowInfo, isAuroraPattern, fromLinearHour, toLinearHour, canHaveShootingStars, queryStars, getStarSecond, isLightShowerPattern, isHeavyShowerPattern, isPatternPossibleAtDate, GuessData, getPatternKind, PatternKind, SpWeatherLevel, getSpWeatherLevel, Constellation, getConstellation, getWindPowerMin, getWindPowerMax, getSpecialCloudInfo, SpecialCloud} from '../pkg'
 export {Hemisphere, Weather, SpecialDay, getMonthLength}
 
@@ -665,4 +668,50 @@ export class DayForecast {
 			shootingStars: this.shootingStars
 		}
 	}
+}
+
+/**
+ * Weather Types
+ */
+
+type ArrayValue<T extends readonly any[]> = T extends readonly (infer V)[]? V: never
+
+/**
+ * All possible weathers, including ambiguous weathers
+ */
+export const weatherTypeOptions = [
+	Weather.Clear,
+	Weather.Sunny,
+	Weather.Cloudy,
+	Weather.RainClouds,
+	Weather.Rain,
+	Weather.HeavyRain,
+	AmbiguousWeather.ClearOrSunny,
+	AmbiguousWeather.SunnyOrCloudy,
+	AmbiguousWeather.CloudyOrRainClouds,
+	AmbiguousWeather.NoRain,
+	AmbiguousWeather.RainOrHeavyRain
+] as const;
+
+// @zemnmez: I don't understand the %% syntax
+// that's in the vue i18n defs for these translation
+// strings. They might be an array somewhere, making this redundant.
+const weatherTypeOptionsTranslatedString: Readonly<Record<WeatherTypeOption, string>> = {
+	[Weather.Clear]: '1stPatternChoices0',
+	[Weather.Sunny]: '1stPatternChoices1',
+	[Weather.Cloudy]: '1stPatternChoices2',
+	[Weather.RainClouds]: '1stPatternChoices3',
+	[Weather.Rain]: '1stPatternChoices4',
+	[Weather.HeavyRain]: '1stPatternChoices5',
+	[AmbiguousWeather.ClearOrSunny]: '1stPatternChoices6',
+	[AmbiguousWeather.SunnyOrCloudy]: '1stPatternChoices7',
+	[AmbiguousWeather.CloudyOrRainClouds]: '1stPatternChoices8',
+	[AmbiguousWeather.NoRain]: '1stPatternChoices9',
+	[AmbiguousWeather.RainOrHeavyRain]: '1stPatternChoices10',
+} as const;
+
+export type WeatherTypeOption = ArrayValue<typeof weatherTypeOptions>
+
+export function translateWeatherTypeOption(t: VueTranslator, w: WeatherTypeOption): VueI18n.TranslateResult {
+	return t.$t(weatherTypeOptionsTranslatedString[w])
 }

@@ -27,6 +27,19 @@ Translations are managed centrally using POEditor. Join the project here to cont
 
 Additionally, there's no obligation to do so, but if you'd like to support my work on this project and other AC:NH research: [PayPal.me](https://paypal.me/trashcurl) | [Ko-fi](https://ko-fi.com/ninji_) | [Monzo](https://monzo.me/ninji) (UK)
 
+## Getting Started
+
+1. Install [Yarn][yarn install].
+2. Install [wasm-pack][wasm-pack install].
+3. Run `yarn` to install dependencies.
+4. Run `yarn build` to test the build works!
+5. Now you can use `yarn devOpen` and the other
+   development scripts defined in [package.json].
+
+[yarn install]: https://classic.yarnpkg.com/en/docs/install
+[wasm-pack install]: https://rustwasm.github.io/wasm-pack/installer
+[package.json]: ./package.json
+
 ## Roadmap/to-do list
 
 - Refresh overview when the day changes at 5am
